@@ -19,7 +19,14 @@ steps:
       export PATH=$PATH:~/.local/bin/
       curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
       sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-      minikube_token=`oci secrets secret-bundle get-secret-bundle-by-name --secret-name minikube_token --vault-id ${VALUT_OCID}  --stage LATEST|jq '."data"."secret-bundle-content"."content"'`
-      minikube_certificate=`oci secrets secret-bundle get-secret-bundle-by-name --secret-name minikube_certificate --vault-id ${VALUT_OCID}  --stage LATEST|jq '."data"."secret-bundle-content"."content"'`
-      echo ${minikube_token}|base64 --decode
+      export minikube_token=`oci secrets secret-bundle get-secret-bundle-by-name --secret-name minikube_token --vault-id ${VALUT_OCID}  --stage LATEST|jq '."data"."secret-bundle-content"."content"'|sed 's/"//g'|base64 --decode`
+      oci secrets secret-bundle get-secret-bundle-by-name --secret-name minikube_certificate --vault-id ${VALUT_OCID}  --stage LATEST|jq '."data"."secret-bundle-content"."content"'|sed 's/"//g'|base64 --decode > minikube_certificate.crt
+      cat /tmp/minikube_kubeconfig |envsubst > kube_config
+      export KUBECONFIG="kube_config"
+      kubectl get nodes
+
+                  
+
+
+    
      
