@@ -17,6 +17,7 @@ steps:
       python3 -m pip install --user oci-cli
       export OCI_CLI_AUTH=instance_principal
       export PATH=$PATH:~/.local/bin/
+      export minikube_url=https://${CLUSTER_IP}:${CLUSTER_PORT}
       curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
       sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
       export minikube_token=`oci secrets secret-bundle get-secret-bundle-by-name --secret-name minikube_token --vault-id ${VALUT_OCID}  --stage LATEST|jq '."data"."secret-bundle-content"."content"'|sed 's/"//g'|base64 --decode`
@@ -24,6 +25,11 @@ steps:
       cat /tmp/minikube_kubeconfig |envsubst > kube_config
       export KUBECONFIG="kube_config"
       kubectl get nodes
+      kubectl create deployment hello-node --image=k8s.gcr.io/echoserver:1.4
+      kubectl get deployments
+      kubectl get pods
+      kubectl get events
+
 
                   
 
