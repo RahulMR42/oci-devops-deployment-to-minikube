@@ -83,7 +83,9 @@ Allow dynamic-group <NAME OF THE DYNAMIC GROUP> to use instance-agent-command-ex
 Allow dynamic-group <NAME OF THE DYNAMIC GROUP> to read generic-artifacts in compartment <NAME OF THE COMPARTMENT>
 Allow dynamic-group <NAME OF THE DYNAMIC GROUP> to read all-artifacts in compartment <NAME OF THE COMPARTMENT>
 Allow dynamic-group <NAME OF THE DYNAMIC GROUP> to read objects in compartment <NAME OF THE COMPARTMENT>
-Allow dynamic-group <NAME OF THE DYNAMIC GROUP> to manage objects in compartment mr-prod-child-2
+Allow dynamic-group <NAME OF THE DYNAMIC GROUP> to manage objects in compartment <NAME OF THE COMPARTMENT>
+Allow dynamic-group <NAME OF THE DYNAMIC GROUP> to manage all-resources in compartment <NAME OF THE COMPARTMENT>
+
 
 ```
 
